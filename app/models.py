@@ -1,6 +1,9 @@
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from datetime import datetime
-from app import db
+
+# Initialize the extensions
+db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,6 +20,3 @@ class Patient(db.Model):
     symptoms = db.Column(db.Text, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
-# Create the tables within the application context
-with app.app_context():
-    db.create_all()
