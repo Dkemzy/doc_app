@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Patients Records</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        h4 {
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Patients Records</h1>
+
+    <h2>Add New Patient</h2>
+    <form action="/" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+
+        <label for="illness">Illness:</label>
+        <input type="text" name="illness" required><br>
+
+        <label for="symptoms">Symptoms:</label>
+        <textarea name="symptoms" required></textarea><br>
+
+        <input type="submit" value="Add Patient">
+    </form>
+
+    {% if patients|length > 0 %}
+    <h2>Existing Patients</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Illness</th>
+            <th>Symptoms</th>
+            <th>Date Created</th>
+        </tr>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.id }}</td>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.illness }}</td>
+            <td>{{ patient.symptoms }}</td>
+            <td>{{ patient.date_created.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <h4>No patients records available. Add one!</h4>
+    {% endif %}
+</div>
+{% endblock %}

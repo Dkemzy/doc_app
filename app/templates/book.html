@@ -1,0 +1,62 @@
+{%extends base.html%}
+
+{%block head%}
+    <title> Booking Appointment </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        select, input[type="submit"] {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+
+{%endblock%}
+
+{%block body%}
+    <div class="content">
+        <h1>Book Appointment</h1>
+
+        <form action="/book" method="POST">
+            <label for="doctor">Select Doctor:</label>
+            <select name="doctor" required>
+                {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">{{ doctor.username }} - {{ doctor.specialization }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="date">Select Date:</label>
+            <input type="date" name="date" required>
+
+            <input type="submit" value="Book Appointment">
+        </form>
+    </div>
+
+{%endblock%}

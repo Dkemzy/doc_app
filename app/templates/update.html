@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Doctors Update</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Illness Details</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Illness</th>
+            <th>Symptoms</th>
+        </tr>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.illness }}</td>
+            <td>{{ patient.symptoms }}</td>
+            <td>
+                <a href="/delete/{{ patient.id }}">Delete</a>
+                <a href="/update/{{ patient.id }}">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="form">
+        <form action="/update/{{ patient.id }}" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" value="{{ patient.name }}">
+            
+            <label for="illness">Illness:</label>
+            <input type="text" name="illness" id="illness" value="{{ patient.illness }}">
+            
+            <label for="symptoms">Symptoms:</label>
+            <input type="text" name="symptoms" id="symptoms" value="{{ patient.symptoms }}">
+            
+            <input type="submit" value="Update">
+        </form>
+    </div>
+</div>
+{% endblock %}

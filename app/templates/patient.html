@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title> Disease search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+    </style>
+{%endblock%}
+
+{%block body%}
+
+<div class="content">
+    <h1>Patients Search</h1>
+
+    <form action="/search" method="POST">
+        <label for="illness">Search by Illness:</label>
+        <input type="text" name="illness" required>
+        <input type="submit" value="Search">
+    </form>
+
+    {% if search_results %}
+    <h2>Search Results</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Illness</th>
+            <th>Symptoms</th>
+            <th>Date Created</th>
+        </tr>
+        {% for patient in search_results %}
+        <tr>
+            <td>{{ patient.id }}</td>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.illness }}</td>
+            <td>{{ patient.symptoms }}</td>
+            <td>{{ patient.date_created.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+
+{%endblock%}
